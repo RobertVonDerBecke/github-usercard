@@ -1,22 +1,23 @@
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+import axios from 'axios'
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
 
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
+followersArray.forEach(item => {
+  axios.get(`https://api.github.com/users/${item}`)
+  .then(resp => {
+    console.log(resp.data)
+    makeCard(resp.data)
+  })
+  .catch(err =>{
+    console.log(err)
+  })
+  
+})
 
-    Skip to STEP 3 (line 34).
-*/
-
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
-
+const domCard = document.querySelector('.cards')
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,33 +29,48 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
+function makeCard(obj){
+  //create elements and add class and content
+  const div = document.createElement('div');
+  div.classList.add('card');
+  const img = document.createElement('img')
+  img.src = `${obj.avatar_url}`
+  const divInfo = document.createElement('div')
+  divInfo.classList.add('card-info');
+  const h3 = document.createElement('h3');
+  h3.textContent = `${obj.name}`
+  h3.classList.add('name');
+  const pUser = document.createElement('p')
+  pUser.textContent = `${obj.login}`
+  pUser.classList.add('username')
+  const pLoc = document.createElement('p');
+  pLoc.textContent = `${obj.location}`
+  const pPro = document.createElement('p');
+  pPro.textContent = 'Profile:'
+  const a = document.createElement('a');
+  a.href = `${obj.html_url}`;
+  const pFollowers = document.createElement('p');
+  pFollowers.textContent = `${obj.followers}`;
+  const pFollowing = document.createElement('p');
+  pFollowing.textContent = `${obj.following}`;
+  const pBio = document.createElement('p');
+  pBio.textContent = `${obj.bio}`
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+  //append to page
+  domCard.appendChild(div);
+  div.appendChild(img);
+  div.appendChild(divInfo);
+  divInfo.appendChild(h3)
+  divInfo.appendChild(pUser)
+  divInfo.appendChild(pLoc)
+  divInfo.appendChild(pPro)
+  pPro.appendChild(a)
+  divInfo.appendChild(pFollowers)
+  divInfo.appendChild(pFollowing)
+  divInfo.appendChild(pBio)
+return div;
+}
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+
+
