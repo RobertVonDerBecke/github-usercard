@@ -44,7 +44,7 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 * [ ] Include the script element linking the `axios` library in your HTML.
 * [ ] If you do not remember the code you can find it [here](https://github.com/axios/axios).
-
+import axios = 'axios'
 #### Option 2 (installing Axios with npm)
 
 * [ ] Navigate to the root of the project with your command line.
